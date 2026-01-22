@@ -38,7 +38,13 @@
 #define GPIOC_BASEADDR          (AHB1PERIPH_BASEADDR + 0x0800)
 #define GPIOD_BASEADDR          (AHB1PERIPH_BASEADDR + 0x0C00)
 #define GPIOE_BASEADDR          (AHB1PERIPH_BASEADDR + 0x1000)
+#define GPIOF_BASEADDR			(AHB1PERIPH_BASEADDR + 0x1400)
+#define GPIOG_BASEADDR			(AHB1PERIPH_BASEADDR + 0x1800)
 #define GPIOH_BASEADDR          (AHB1PERIPH_BASEADDR + 0x1C00)
+#define GPIOI_BASEADDR			(AHB1PERIPH_BASEADDR + 0x2000)
+#define GPIOJ_BASEADDR			(AHB1PERIPH_BASEADDR + 0x2400)
+#define GPIOK_BASEADDR			(AHB1PERIPH_BASEADDR + 0x2800)
+
 
 #define RCC_BASEADDR            (AHB1PERIPH_BASEADDR + 0x3800)
 
@@ -68,28 +74,31 @@ typedef struct
 	__vo uint32_t CIR;
 	__vo uint32_t AHB1RSTR;
 	__vo uint32_t AHB2RSTR;
-	uint32_t 	  Reserved1[2];
+    __vo uint32_t AHB3RSTR;
+	uint32_t 	  Reserved1;
 	__vo uint32_t APB1RSTR;
 	__vo uint32_t APB2RSTR;
 	uint32_t 	  Reserve2[2];
 	__vo uint32_t AHB1ENR;
 	__vo uint32_t AHB2ENR;
-	uint32_t 	  Reserve3[2];
+	__vo uint32_t AHB3ENR;
+	uint32_t 	  Reserve3;
 	__vo uint32_t APB1ENR;
 	__vo uint32_t APB2ENR;
 	uint32_t 	  Reserve4[2];
 	__vo uint32_t AHB1LPENR;
 	__vo uint32_t AHB2LPENR;
-	uint32_t 	  Reserve5[2];
+	__vo uint32_t AHB3LPENR;
+	uint32_t 	  Reserve5;
 	__vo uint32_t APB1LPENR;
 	__vo uint32_t APB2LPENR;
 	uint32_t 	  Reserve6[2];
 	__vo uint32_t BDCR;
-	__vo uint32_t CSR;
+	__vo₹ uint32_t CSR;
 	uint32_t 	  Reserve7[2];
 	__vo uint32_t SSCGR;
 	__vo uint32_t PLLI2SCFGR;
-	uint32_t 	  Reserve8;
+	__vo uint32_t PLLSAICFGR;
 	__vo uint32_t DCKCFGR;
 
 }RCC_RegDef_t;
@@ -103,8 +112,12 @@ typedef struct
 #define GPIOC		 ((GPIO_RegDef_t*)GPIOC_BASEADDR)
 #define GPIOD		 ((GPIO_RegDef_t*)GPIOD_BASEADDR)
 #define GPIOE		 ((GPIO_RegDef_t*)GPIOE_BASEADDR)
+#define GPIOF		 ((GPIO_RegDef_t*)GPIOF_BASEADDR)
+#define GPIOG		 ((GPIO_RegDef_t*)GPIOG_BASEADDR)
 #define GPIOH		 ((GPIO_RegDef_t*)GPIOH_BASEADDR)
-
+#define GPIOI		 ((GPIO_RegDef_t*)GPIOI_BASEADDR)
+#define GPIOJ		 ((GPIO_RegDef_t*)GPIOJ_BASEADDR)
+#define GPIOK		 ((GPIO_RegDef_t*)GPIOK_BASEADDR)
 
 
 #define RCC ((RCC_RegDef_t*)RCC_BASEADDR)
@@ -119,8 +132,12 @@ typedef struct
 #define GPIOC_PCLCK_EN()		(RCC->AHB1ENR |= (1<<2));
 #define GPIOD_PCLCK_EN()		(RCC->AHB1ENR |= (1<<3));
 #define GPIOE_PCLCK_EN()		(RCC->AHB1ENR |= (1<<4));
+#define GPIOF_PCLCK_EN()		(RCC->AHB1ENR |= (1<<5));
+#define GPIOG_PCLCK_EN()		(RCC->AHB1ENR |= (1<<6));
 #define GPIOH_PCLCK_EN()		(RCC->AHB1ENR |= (1<<7));
-
+#define GPIOI_PCLCK_EN()		(RCC->AHB1ENR |= (1<<8));
+#define GPIOJ_PCLCK_EN()		(RCC->AHB1ENR |= (1<<9));
+#define GPIOK_PCLCK_EN()		(RCC->AHB1ENR |= (1<<10));
 
 /*
  * Clock Disable Macros for GPIOx Peripherals
