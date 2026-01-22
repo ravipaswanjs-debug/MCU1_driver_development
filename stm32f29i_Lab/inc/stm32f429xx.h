@@ -151,6 +151,7 @@ typedef struct
 #define GPIOH_PCLCK_DI()		(RCC->AHB1ENR &= ~(1<<7));
 
 
+
 /*
  * GPIO Register Reset Macros
  */
