@@ -25,4 +25,54 @@ typedef struct{
 }SPI_Handle_t;
 
 
+/*
+* SPI Device Modes Macros 
+*/
+#define SPI_MODE_MASTER			1
+#define SPI_MODE_SLAVE 			0
+
+/*
+* SPI Possible Bus configs Macros
+*/
+
+#define SPI_FULL_DUPLEX			0
+#define SPI_HALF_DUPLEX			1
+#define SPI_SIMPLEX_RXTX		2
+
+/*
+* SPI Possible Clock Speed Macros
+*/
+#define SPI_FCLCK_2				0
+#define SPI_FCLCK_4				0
+#define SPI_FCLCK_8				0
+#define SPI_FCLCK_16			0
+#define SPI_FCLCK_32			0
+#define SPI_FCLCK_64			0
+#define SPI_FCLCK_128			0
+#define SPI_FCLCK_256			0
+
+/*
+* SPI Possible data frame formats Macros
+*/
+#define SPI_DFF_8				0
+#define SPI_DFF_16				1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #endif /* INC_STM32F411X_SPI_DRIVER_H_ */
