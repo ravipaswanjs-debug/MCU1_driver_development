@@ -34,9 +34,17 @@ void SPI_PeriClockControl(SPI_RegDef_t *pSPIx,uint8_t EnorDi);
 
 
 //SPI Init and Deinit API definitions
-void SPI_Init(SPI_Handle_t *pSPIHandle)
-void SPI_Deinit(SPI_RegDef_t*pSPIx
+void SPI_Init(SPI_Handle_t *pSPIHandle);
+void SPI_Deinit(SPI_RegDef_t *pSPIx);
 
+// SPI Data send and recieve APIs
+void SPI_SendData(SPI_RegDef_t *pSPIx, uint8_t pTxBuffer, uint32_t len);
+void SPI_RecieveData(SPI_RegDef_t *pSPIx,uint8_t pRxBuffer, uint32_len);
+
+//IRQ Coniguration and ISR handling
+void SPI_IRQInterruptConfig(uint8_t IRQ_Number,uint8_t EnorDi);
+void SPI_IRQPriorityConfig(uint8_t IRQ_Number, uint32 IRQPriority);
+void SPI_IRQHandling(SPI_Handle_t *pSPIHandle);
 
 /*
 * SPI Device Modes Macros 
