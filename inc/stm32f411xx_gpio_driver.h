@@ -88,130 +88,27 @@ typedef struct {
 /*
  * Peripheral Clock Setup
  */
-void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi) {
-    if (EnorDi == ENABLE) {
-        if (pGPIOx == GPIOA) {
-            GPIOA_PCLCK_EN();
-        } else if (pGPIOx == GPIOB) {
-            GPIOB_PCLCK_EN();
-        } else if (pGPIOx == GPIOC) {
-            GPIOC_PCLCK_EN();
-        } else if (pGPIOx == GPIOD) {
-            GPIOD_PCLCK_EN();
-        } else if (pGPIOx == GPIOE) {
-            GPIOE_PCLCK_EN();
-        } else if (pGPIOx == GPIOH) {
-            GPIOH_PCLCK_EN();
-        }
-    } else {
-        if (pGPIOx == GPIOA) {
-            GPIOA_PCLCK_DI();
-        } else if (pGPIOx == GPIOB) {
-            GPIOB_PCLCK_DI();
-        } else if (pGPIOx == GPIOC) {
-            GPIOC_PCLCK_DI();
-        } else if (pGPIOx == GPIOD) {
-            GPIOD_PCLCK_DI();
-        } else if (pGPIOx == GPIOE) {
-            GPIOE_PCLCK_DI();
-        } else if (pGPIOx == GPIOH) {
-            GPIOH_PCLCK_DI();
-        }
-    }
-}
+void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi);
 
 /*
  * GPIO Enabling and disabling
  */
-void GPIO_Init(GPIO_Handle_t *pGPIOHandle) {
-    uint32_t temp;
-    // 1. Configure the mode of the Pin
-    if (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode <= GPIO_MODE_ANALOG) {
-        // non interrupt mode
-        temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode << (2 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber));
-        pGPIOHandle->pGPIOx->MODER &= ~(0x03 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber); // clearing
-        pGPIOHandle->pGPIOx->MODER |= temp; // setting
-        temp = 0;
-    } else {
-        // Interrupt Mode
-    }
+void GPIO_Init(GPIO_Handle_t *pGPIOHandle);
 
-    // 2. Configure the Speed
-    temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinSpeed << (2 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber));
-    pGPIOHandle->pGPIOx->OSPEEDR &= ~(0x03 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber); // clearing
-    pGPIOHandle->pGPIOx->OSPEEDR |= temp;
-    temp = 0;
-
-    // 3. configure the PuPd Setting
-    temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinPuPdControl << (2 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber));
-    pGPIOHandle->pGPIOx->PUPDR &= ~(0x03 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber); // clearing
-    pGPIOHandle->pGPIOx->PUPDR |= temp;
-    temp = 0;
-
-    // 4. Configure the optype
-    temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinOPType << (pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber));
-    pGPIOHandle->pGPIOx->OTYPER &= ~(0x01 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber); // clearing
-    pGPIOHandle->pGPIOx->OTYPER |= temp;
-    temp = 0;
-
-    // 5. Configure the alt functionality
-    if (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_ALTFN) {
-        uint8_t temp1, temp2;
-        temp1 = (pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber / 8);
-        temp2 = (pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber % 8);
-        pGPIOHandle->pGPIOx->AFR[temp1] &= ~(0xF << 4 * temp2); // Clearing
-        pGPIOHandle->pGPIOx->AFR[temp1] |= (pGPIOHandle->GPIO_PinConfig.GPIO_PinAltFunMode << 4 * temp2);
-    }
-}
-
-void GPIO_deinit(GPIO_RegDef_t *pGPIOx) {
-    if (pGPIOx == GPIOA) {
-        GPIOA_REG_RESET();
-    } else if (pGPIOx == GPIOB) {
-        GPIOB_REG_RESET();
-    } else if (pGPIOx == GPIOC) {
-        GPIOC_REG_RESET();
-    } else if (pGPIOx == GPIOD) {
-        GPIOD_REG_RESET();
-    } else if (pGPIOx == GPIOE) {
-        GPIOE_REG_RESET();
-    } else if (pGPIOx == GPIOH) {
-        GPIOH_REG_RESET();
-    }
-}
+void GPIO_deinit(GPIO_RegDef_t *pGPIOx);
 
 /*
  * GPIO Read and Write Functionalities
  */
-uint8_t GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber) {
-    uint8_t value;
-    value = (uint8_t)((pGPIOx->IDR >> PinNumber) & 0x00000001);
-    return value;
-}
+uint8_t GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber);
 
-uint16_t GPIO_ReadFromInputPort(GPIO_RegDef_t *pGPIOx) {
-    uint16_t value;
-    value = (uint16_t)pGPIOx->IDR;
-    return value;
-}
+uint16_t GPIO_ReadFromInputPort(GPIO_RegDef_t *pGPIOx);
 
-void GPIO_WriteToOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t Value) {
-    if (Value == GPIO_PIN_SET) {
-        // Write 1 to the Bit position
-        pGPIOx->ODR |= (1 << PinNumber);
-    } else {
-        // Write 0 to the Bit Position
-        pGPIOx->ODR &= ~(1 << PinNumber);
-    }
-}
+void GPIO_WriteToOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t Value);
 
-void GPIO_WritetoOutputPort(GPIO_RegDef_t *pGPIOx, uint16_t Value) {
-    pGPIOx->ODR = Value;
-}
+void GPIO_WritetoOutputPort(GPIO_RegDef_t *pGPIOx, uint16_t Value);
 
-void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber) {
-    pGPIOx->ODR ^= (1 << PinNumber);
-}
+void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber);
 
 /*
  * GPIO Interrupt Handling and configuration
