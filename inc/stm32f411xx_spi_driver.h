@@ -49,40 +49,51 @@ void SPI_IRQHandling(SPI_Handle_t *pSPIHandle);
 /*
 * SPI Device Modes Macros 
 */
-#define SPI_MODE_MASTER			1
-#define SPI_MODE_SLAVE 			0
+#define SPI_DEVICE_MODE_MASTER			1
+#define SPI_DEVICE_MODE_SLAVE 			0
 
 /*
 * SPI Possible Bus configs Macros
 */
 
-#define SPI_FULL_DUPLEX			0
-#define SPI_HALF_DUPLEX			1
-#define SPI_SIMPLEX_RXTX		2
+#define SPI_BUS_CONFIG_FD			1
+#define SPI_BUS_CONFIG_HD			2
+#define SPI_BUS_CONFIG_STXRX		3
 
 /*
 * SPI Possible Clock Speed Macros
 */
-#define SPI_FCLCK_2				0
-#define SPI_FCLCK_4				0
-#define SPI_FCLCK_8				0
-#define SPI_FCLCK_16			0
-#define SPI_FCLCK_32			0
-#define SPI_FCLCK_64			0
-#define SPI_FCLCK_128			0
-#define SPI_FCLCK_256			0
+#define SPI_SCLCK_SPEED_DIV2		0
+#define SPI_SCLCK_SPEED_DIV4		1
+#define SPI_SCLCK_SPEED_DIV8		2
+#define SPI_SCLCK_SPEED_DIV16		3
+#define SPI_SCLCK_SPEED_DIV32		4
+#define SPI_SCLCK_SPEED_DIV64		5
+#define SPI_SCLCK_SPEED_DIV128		6
+#define SPI_SCLCK_SPEED_DIV256		7
 
 /*
 * SPI Possible data frame formats Macros
 */
-#define SPI_DFF_8				0
-#define SPI_DFF_16				1
+#define SPI_DFF_8BITS				0
+#define SPI_DFF_16BITS				1
 
+/*
+* @CPOL
+*/
+#define SPI_CPOL_HIGH				0
+#define SPI_CPOL_LOW			 	1
 
+/*
+* @CPHA
+*/
+#define SPI_CPHA_HIGH				0
+#define SPI_CPLA_LOW				1
 
+/* SPI Software Slave Managment */
 
-
-
+#define SPI_SSM_ENABLED				1
+#define SPI_SSM_DISABLED			0
 
 
 
