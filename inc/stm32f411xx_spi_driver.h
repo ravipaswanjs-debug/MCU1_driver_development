@@ -24,6 +24,19 @@ typedef struct{
 	SPI_Config_t SPIConfig;
 }SPI_Handle_t;
 
+/*****************************************************
+*          APIs supported by this driver headder file
+******************************************************/
+
+// Peripheral Clock Enable APP
+void SPI_PeriClockControl(SPI_RegDef_t *pSPIx,uint8_t EnorDi);
+
+
+
+//SPI Init and Deinit API definitions
+void SPI_Init(SPI_Handle_t *pSPIHandle)
+void SPI_Deinit(SPI_RegDef_t*pSPIx
+
 
 /*
 * SPI Device Modes Macros 
