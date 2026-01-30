@@ -289,6 +289,21 @@ typedef struct{
 #define GPIOE_REG_RESET()				do{(RCC->AHB1RSTR |= (1 << 4)); (RCC->AHB1RSTR &= ~(1 << 4));}while(0)
 #define GPIOH_REG_RESET()				do{(RCC->AHB1RSTR |= (1 << 7)); (RCC->AHB1RSTR &= ~(1 << 7));}while(0)
 
+/*
+* SPI Register reset macros
+*/
+#define SPI1_REG_RESET()				do{(RCC->APB2RSTR |= (1 << 12)); (RCC->APB2RSTR &= ~(1 << 12));}while(0)
+#define SPI2_REG_RESET()				do{(RCC->APB1RSTR |= (1 << 14)); (RCC->APB1RSTR &= ~(1 << 14));}while(0)
+#define SPI3_REG_RESET()				do{(RCC->APB1RSTR |= (1 << 15)); (RCC->APB1RSTR &= ~(1 << 15));}while(0)
+#define SPI4_REG_RESET()				do{(RCC->APB2RSTR |= (1 << 13)); (RCC->APB2RSTR &= ~(1 << 13));}while(0)
+
+/*
+* I2C Register Reset macros
+*/
+
+#define I2C1_REG_RESET()				do{(RCC->APB1RSTR |= (1 << 21)); (RCC->APB1RSTR &= ~(1 << 21));}while(0)
+#define I2C2_REG_RESET()				do{(RCC->APB1RSTR |= (1 << 22)); (RCC->APB1RSTR &= ~(1 << 22));}while(0)
+#define I2C1_REG_RESET()				do{(RCC->APB1RSTR |= (1 << 23)); (RCC->APB1RSTR &= ~(1 << 23));}while(0)
 
 // Some Generic Macros
 #define ENABLE 				1
@@ -298,11 +313,72 @@ typedef struct{
 #define GPIO_PIN_SET 		SET
 #define GPIO_PIN_RESET		RESET
 
+/***********************************************************************
+*					Bit Position Defintions of I2C Registers
+**********************************************************************/
 
+/*
+ * Bit position definitions I2C_CR1
+ */
+#define I2C_CR1_PE						0
+#define I2C_CR1_NOSTRETCH  				7
+#define I2C_CR1_START 					8
+#define I2C_CR1_STOP  				 	9
+#define I2C_CR1_ACK 				 	10
+#define I2C_CR1_SWRST  				 	15
 
+/*
+ * Bit position definitions I2C_CR2
+ */
+#define I2C_CR2_FREQ				 	0
+#define I2C_CR2_ITERREN				 	8
+#define I2C_CR2_ITEVTEN				 	9
+#define I2C_CR2_ITBUFEN 			    10
+
+/*
+ * Bit position definitions I2C_OAR1
+ */
+#define I2C_OAR1_ADD0    				 0
+#define I2C_OAR1_ADD71 				 	 1
+#define I2C_OAR1_ADD98  			 	 8
+#define I2C_OAR1_ADDMODE   			 	15
+
+/*
+ * Bit position definitions I2C_SR1
+ */
+
+#define I2C_SR1_SB 					 	0
+#define I2C_SR1_ADDR 				 	1
+#define I2C_SR1_BTF 					2
+#define I2C_SR1_ADD10 					3
+#define I2C_SR1_STOPF 					4
+#define I2C_SR1_RXNE 					6
+#define I2C_SR1_TXE 					7
+#define I2C_SR1_BERR 					8
+#define I2C_SR1_ARLO 					9
+#define I2C_SR1_AF 					 	10
+#define I2C_SR1_OVR 					11
+#define I2C_SR1_TIMEOUT 				14
+
+/*
+ * Bit position definitions I2C_SR2
+ */
+#define I2C_SR2_MSL						0
+#define I2C_SR2_BUSY 					1
+#define I2C_SR2_TRA 					2
+#define I2C_SR2_GENCALL 				4
+#define I2C_SR2_DUALF 					7
+
+/*
+ * Bit position definitions I2C_CCR
+ */
+#define I2C_CCR_CCR 					 0
+#define I2C_CCR_DUTY 					14
+#define I2C_CCR_FS  				 	15
 
 #include "stm32f411xx_gpio_driver.h"
 #include "stm32f411xx_spi_driver.h"
+#include "stm32f411xx_i2c_driver.h"
 
 
 #endif /* INC_STM32F411XX_H_ */
