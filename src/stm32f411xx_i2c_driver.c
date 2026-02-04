@@ -1,5 +1,7 @@
 #include "stm32f411xx.h"
 
+
+
 void I2C_PeriClockControl(I2C_RegDef_t *pI2Cx,uint8_t EnorDi){
 
   if (EnorDi == ENABLE){
@@ -96,16 +98,36 @@ void I2C_Init(I2C_Handle_t *pI2CHandle)
 	}
 	pI2CHandle->pI2Cx->TRISE = (tempreg & 0x3F);
 }
-
-
-
-
-
-
-
-
-
-  
-
-    
+     
 }
+
+// Start Pasting from here 3 Feb 2026
+
+static void void I2C_GenerateStartConditon(I2C_RegDef_t *pI2Cx);
+
+void I2C_MasterSendData(I2C_Handle_t *pI2CHandle, uint8_t *pTxBuffer, uint32_t len,uint8_t SlaveAddr){
+
+ // Generate The Start condition 
+	I2C_GenerateStartCondition(pI2CHandle->pI2Cx);
+
+// confirm that the start generation is completed by cheching the SB
+// Flag in the SR1 register 
+// Note : Until SB is cleared SCL will be streched (Pulledd to low)
+while(! (pI2CHandle->I2Cx->SB1 ))
+	
+}
+
+void I2C_GenerateStartCondition(I2C_RegDef_t *pI2Cx){
+	pI2Cx->CR1 |= (1 << I2C_CR1_START)
+}
+
+
+
+
+
+
+
+
+
+
+
