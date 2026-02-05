@@ -121,6 +121,25 @@ void I2C_GenerateStartCondition(I2C_RegDef_t *pI2Cx){
 	pI2Cx->CR1 |= (1 << I2C_CR1_START)
 }
 
+void I2C_MasterSendData(I2C_Handle_t *pI2CHandle,uint8_t *pTxBuffer, unit32_t Len, uint8_t SlaveAddr){
+
+	/// Check the start bit of the SR1 register in I2C Peripera
+
+	while (! (I2C_GetFlagStatus(pI2CHandle->pI2Cx, I2C_FLAG_SB)))
+
+	// Now wait till the ADDR Bit of the SR1 bit is set
+
+	while(!(I2C_GetFlagStatues(pI2CHandle->pI2Cx, I2C_FLAG_ADDR)));
+}
+
+uint8_t I2C_GetFlagStatus(I2C_RegDef_t *pI2Cx, unit32_t FLAGNAME){
+	if (pI2Xc->SR1 & FLAGNAME){
+		return FLAGSET;
+	}
+	else {
+		retun FLAGRESET;
+	}
+}
 
 
 
