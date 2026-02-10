@@ -39,6 +39,12 @@ void USART_Init(USART_Handle_t *pUSARTHandle)
     if (pUSARTHandle->USART_Config.USART_Mode == USART_MODE_RX_ONLY){
             tempreg |= (1 << USART_CR1_RXE);
     }
+	else if (pUSARTHandle->USART_Config.USART_Mode == USART_MODE_TX_ONLY){
+		tempreg |= (1 << USART_CR_TXE);
+	}
+		else if (pUSARTHandle->USARTConfig.USART_Mode == USART_MODETXRX_ONLY){
+			tempreg |= (1 << USART_CR1_TXE) | (1 << USART_CR1_RXE)
+		}
     else if (pUSARTHandle->USARTC) 
 	  
 		//Implement the code to enable the Receiver bit field
